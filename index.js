@@ -68,10 +68,11 @@ function insertTextArea() {
 
     txtarea = document.createElement('textarea')
     txtarea.id = 'clipboard-txtarea'
-    // txtarea.style.position = 'absolute'
-    // txtarea.style.top = 0
-    // txtarea.style.left = 0
-
+    txtarea.style.cssText = `
+        position: fixed;
+        top: 0;
+        right: -50%;
+    `
     elm.append(txtarea)
 }
 
@@ -86,6 +87,7 @@ function insertButton(config) {
     btn.id = config.id
     btn.style.cssText = `
         margin-top: 1.3rem;
+        width: 100%;
         background-color:${config.backgroundColor};
         border-radius:13px;
         border:3px solid ${config.borderColor};
@@ -194,6 +196,9 @@ function copyClipboard() {
     /* Get the text field */
     var copyText = document.getElementById("clipboard-txtarea");
 
+    /** Set data into textarea  */
+    copyText.value = JSON.stringify(contacts)
+
     /* Select the text field */
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
@@ -210,7 +215,6 @@ function copyClipboard() {
 // executions
 /////////////////////////////////////////////////////////////////////////
 
-insertTextArea()
 getAutoLoopFromLocalStorage()
 getFullListFromLocalStorage()
 insertButton({
@@ -229,7 +233,7 @@ insertButton({
     borderColor: '#101566',
     fx: copyClipboard
 })
-
+insertTextArea()
 
 
 
