@@ -2,7 +2,6 @@
 
 let autoLoop = false
 let localStorageKey = ''
-let btn = null
 let txtarea = null
 let contacts = {
     quoiqui: "medecin generaliste",
@@ -80,7 +79,7 @@ function insertButton(config) {
     let elm = document.querySelector("#pave1")
 
     if (elm == null) return
-    if (btn != null) return
+    if (document.querySelector("#" + config.id) != null) return
 
     btn = document.createElement('button')
     btn.innerText = config.innerText
