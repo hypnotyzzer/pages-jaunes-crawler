@@ -625,7 +625,7 @@ function goToNextDepartment() {
     let newCode = +queries.ou.match(/\d+/)[0] + 1
     let result = departements_fr.find(x => +x.code >= newCode)
     debugger
-    if (result.code < 976) {
+    if (newCode <= 976) {
         const { nom, code } = result
         const q = contacts.quoiqui.replace(/\s+/g, '+')
         //"https://www.pagesjaunes.fr/annuaire/chercherlespros?quoiqui=medecin+generaliste&ou=Ardèche+(07)&univers=pagesjaunes&idOu=D007"
