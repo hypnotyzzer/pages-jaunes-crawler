@@ -23,7 +23,7 @@ var MODEL_ITEM = {
     }
 }
 
-export const departements_fr = [
+const departements_fr = [
     {
         "département": {
             "code": "01",
@@ -2450,3 +2450,18 @@ export const departements_fr = [
     }
 ]
 
+/**
+ * Get all constructed urls for the site "www.pagesjaunes.fr"
+ * @param {string} query term as what are you searching for... (ex: "medecin generaliste", "base de loisirs")
+ */
+function urlsDepartements_france(query) {
+    return departements_fr.map(x => {
+        const { nom, code } = x.département
+        const q = query.replace(/\s+/g, '+')
+        //"https://www.pagesjaunes.fr/annuaire/chercherlespros?quoiqui=medecin+generaliste&ou=Ardèche+(07)&univers=pagesjaunes&idOu=D007"
+        let url = `https://www.pagesjaunes.fr/annuaire/chercherlespros?quoiqui=${q}&ou=${nom}+(${code})&univers=pagesjaunes&idOu=D${code.toString().padStart(3, 0)}`
+        return encodeURI(url)
+    })
+}
+
+console.log(urlsDepartements_france('medecin generaliste'))
