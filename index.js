@@ -3,6 +3,7 @@
 let autoLoop = false
 let localStorageKey = ''
 let btn = null
+let txtarea = null
 let contacts = {
     quoiqui: "medecin generaliste",
     ou: "Aube (10)",
@@ -58,6 +59,21 @@ function getActualQueryURL() {
         obj[key] = sp[1].replace(/\+/g, ' ')
     })
     return obj
+}
+
+function insertTextArea() {
+    let elm = document.querySelector("#pave1")
+
+    if (elm == null) return
+    if (txtarea != null) return
+
+    txtarea = document.createElement('textarea')
+    txtarea.id = 'clipboard-txtarea'
+    // txtarea.style.position = 'absolute'
+    // txtarea.style.top = 0
+    // txtarea.style.left = 0
+
+    elm.append(txtarea)
 }
 
 function insertButton(config) {
@@ -175,10 +191,27 @@ function goToNext() {
     }
 }
 
+function copyClipboard() {
+    /* Get the text field */
+    var copyText = document.getElementById("clipboard-txtarea");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+}
+
+
 /////////////////////////////////////////////////////////////////////////
 // executions
 /////////////////////////////////////////////////////////////////////////
 
+insertTextArea()
 getAutoLoopFromLocalStorage()
 getFullListFromLocalStorage()
 insertButton({
@@ -195,7 +228,7 @@ insertButton({
     color: '#ffffff',
     backgroundColor: '#7A81DE',
     borderColor: '#101566',
-    fx: extractAllData
+    fx: copyClipboard
 })
 
 
